@@ -1,0 +1,17 @@
+Flask
+Flask-Cors
+flask-openapi3
+Flask-SQLAlchemy
+nose2
+pydantic
+SQLAlchemy
+SQLAlchemy-Utils
+typing_extensions
+click
+greenlet
+importlib-metadata
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug==2.2.2
+zipp

@@ -1,0 +1,16 @@
+# .dockerignore
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+*.egg
+*.egg-info
+dist
+build
+**/venv
+**/.git
+**/.github
+**/.gitignore
+.dockerignore
+Dockerfile
+README.md
