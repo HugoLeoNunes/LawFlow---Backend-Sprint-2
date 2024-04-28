@@ -80,7 +80,7 @@ Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter com
 
 Certifique-se de ter o Docker instalado e em execução em sua máquina.
 
-Para fins de facilidade na criação dos contêineres, criei um arquivo chamado docker-compose.yml. Ele está em um [repositório próprio] (https://github.com/HugoLeoNunes/Docker-compose) para que não exista confusão. 
+Para fins de facilidade na criação dos contêineres, criei um arquivo chamado docker-compose.yml. Ele está em um [**repositório próprio**](https://github.com/HugoLeoNunes/Docker-compose) para que não exista confusão. 
 
 Tal arquivo deverá ficar em uma pasta própria em seu computador onde os repostitórios LawFlow---Backend-Sprint-2 e LawFlow---Frontend-Sprint-2 deverão ser clonados.
 
