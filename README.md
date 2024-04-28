@@ -163,3 +163,5 @@ ports:: Esta linha inicia a definição das portas que serão expostas pelo cont
 - "5000:5000" e - "80:80": Estas linhas mapeiam as portas do container para as portas do host. O formato é porta_do_host:porta_do_container. Portanto, a aplicação backend estará acessível na porta 5000 do host e a aplicação frontend estará acessível na porta 80 do host.
 
 Em resumo, este arquivo docker-compose.yml define uma aplicação composta por dois serviços, backend e frontend. Cada serviço é construído a partir de seu próprio Dockerfile e expõe uma porta para o host.
+
+[**Dr. Hugo Leonardo Nunes.**](https://www.linkedin.com/in/hugo-leonardo-nunes-474152246/) 
