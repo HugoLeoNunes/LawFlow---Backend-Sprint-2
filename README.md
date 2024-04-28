@@ -59,7 +59,7 @@ Por derradeiro, o aplicativo não apenas proporciona um meio acessível para adv
 [**Dr. Hugo Leonardo Nunes.**](https://www.linkedin.com/in/hugo-leonardo-nunes-474152246/) 
 * Consultor Juridico da Nunes & Nunes advogados.
 * Gestor público estadual concursado.
-* Mestre cervejeiro da Sexy Devil Beer (Hoby mais saboroso do mundo).
+* Mestre cervejeiro da Sexy Devil Beer (Hobby mais saboroso do mundo).
 * UX Design formado pela Google.
 * Desenvolvedor full stack em treinamento.
 
