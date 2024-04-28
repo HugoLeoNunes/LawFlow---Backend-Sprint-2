@@ -1,7 +1,7 @@
 # LawFlow
   
   
-*Informações sobre como utilizar o app ao final deste arquivo.*
+*Informações sobre como utilizar a api, ao final deste arquivo.*
 
 
 ## Simplificando o jurídico, conectando advogados ao Futuro!
@@ -13,11 +13,11 @@ Assim, trata-se da etapa inaugural de um projeto destinado ao controle administr
 
 ### Agradecimentos: 
 
-* Em primeiro lugar a Deus por me ensinar que cada desafio é uma oportunidade de aprender a caminhar e conquistar coisas maiores.
-* A Minha maravilhosa esposa, que é minha fonte de carinho e amor.
+* Em primeiro lugar a Deus, por me ensinar que cada desafio é uma oportunidade de aprender a caminhar e conquistar coisas maiores.
+* A minha maravilhosa esposa, que é minha fonte de carinho e amor.
 * As minhas filhas que são literalmente meu TUDO, e mais necessárias a minha existência do que o ar que respiro. Sem deixar de dizer, que sempre que podem, pulam em mim enquanto estou trabalhando ou estudando. 👶
-* Aos amigos que me ssalvam nos dias mais dificeis. Principalemte ao Cadu e ao Rodrigo pelas tempestivas ajudas, sem a qual não teria conseguido terminar este projeto.
-*  Aos meus professores por partilhar seu onhecimento e acreditar no meu potencial.
+* Aos amigos que me salvam nos dias mais dificeis. Principalemte ao Cadu e ao Rodrigo pelas tempestivas ajudas, sem a qual não teria conseguido terminar este projeto.
+*  Aos meus professores por partilhar seu conhecimento e acreditar no meu potencial.
 *  Por último, mas não menos importante, a mim mesmo... Pelo esforço e dedicação. 🥇
 
 
@@ -71,7 +71,7 @@ Esta é a versão 1.0.1 de um projeto (MVP) de uma aplicação Web, planejada pa
 
 O objetivo aqui é demonstrar a usabilidade e a empregabilidade do aplicativo.
 
-Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter como suporte e, dependendo do contrato firmado, um escritório de advocacia com advogados de renome e grande arcabouço juridico, para auxiliar nas tramitações de seus processos. 
+Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter como suporte e, dependendo do contrato firmado, um escritório de advocacia com advogados de renome e grande arcabouço jurídico, para auxiliar nas tramitações de seus processos. 
 
 ---
 
@@ -100,7 +100,7 @@ services:
     ports:
       - "80:80" `
 
-Após, navegue até a pasta onde ambos os repositórios estão, com o diretório que contém o # docker-compose.yml no terminal. Execute como administrador o seguinte comando para construir a imagem Docker:
+Após, navegue até a pasta onde ambos os repositórios estão, com o diretório que contém o docker-compose.yml no terminal. Execute como administrador o seguinte comando para construir a imagem Docker:
 
 `$ docker-compose up` 
 
@@ -112,9 +112,9 @@ para deixar o processo em background.
 
 > É fortemente indicado o uso de ambientes virtuais do tipo [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).
 
-Pronto, para ver o frontend em execução basta digitar em seu navegador: http://localhost/index.html
+Pronto, para ver o frontend em execução basta digitar em seu navegador: [http://localhost/index.html](http://localhost/index.html)
 
-Paa ver a execução da API através do flask com a documentação do backend basta digitar em seu navegador: http://localhost:5000
+Para ver a execução da API através do flask com a documentação do backend, basta digitar em seu navegador: [http://localhost:5000](http://localhost:5000)
 
 
 ### Alguns conhecimentos úteis sobre como executei os containers.
@@ -130,7 +130,7 @@ Adicionei o trecho infra de código no arquivo app.py:
 
 FROM python:3.10: Isso define a imagem base como a imagem oficial do Python 3.10. 
 
-WORKDIR /app: Isso define o diretório de trabalho no container para /app. Todos os comandos que seguem esta linha no Dockerfile serão executados neste diretório.
+WORKDIR /app: Isso define o diretório de trabalho no container para /app. Todos os comandos que seguem esta linha no Dockerfile, serão executados neste diretório.
 
 RUN pip install -r requirements.txt: Isso instala as dependências Python listadas no arquivo requirements.txt.
 
@@ -144,7 +144,7 @@ Este é um Dockerfile bastante simples que está configurado para criar uma imag
 
 FROM nginx:alpine: Esta linha especifica a imagem base que será usada para criar a nova imagem Docker. Neste caso, está sendo usada a imagem nginx:alpine, que é uma versão do servidor web Nginx que foi construída usando a distribuição Alpine Linux. A distribuição Alpine Linux é conhecida por ser muito leve, o que pode ajudar a manter o tamanho da imagem Docker pequeno.
 
-COPY . /usr/share/nginx/html: Esta linha copia os arquivos do diretório atual (onde o Dockerfile está localizado) para o diretório /usr/share/nginx/html dentro do container. Este é o diretório que o Nginx usa por padrão para servir arquivos estáticos. Portanto, qualquer arquivo HTML, CSS, JavaScript, etc., que você tenha no diretório atual será servido pelo Nginx quando o container for iniciado.
+COPY . /usr/share/nginx/html: Esta linha copia os arquivos do diretório atual (onde o Dockerfile está localizado) para o diretório /usr/share/nginx/html dentro do container. Este é o diretório que o Nginx usa por padrão, para servir arquivos estáticos. Portanto, qualquer arquivo HTML, CSS, JavaScript, etc., que você tenha no diretório atual, será servido pelo Nginx quando o container for iniciado.
 
 *Explicação do Docker Compose*
 
