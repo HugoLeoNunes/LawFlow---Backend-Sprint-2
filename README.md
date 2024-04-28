@@ -80,9 +80,9 @@ Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter com
 
 Certifique-se de ter o Docker instalado e em execução em sua máquina.
 
-Para fins de facilidade na criação dos contêineres, criei um arquivo chamado docker-compose.yml. Ele está em um [**repositório próprio**](https://github.com/HugoLeoNunes/Docker-compose) para que não exista confusão. 
+Para fins de facilidade na criação dos containers, criei um arquivo chamado docker-compose.yml. Ele está em um [**repositório próprio**](https://github.com/HugoLeoNunes/Docker-compose) para que não exista confusão. 
 
-Tal arquivo deverá ficar em uma pasta própria em seu computador onde os repostitórios LawFlow---Backend-Sprint-2 e LawFlow---Frontend-Sprint-2 deverão ser clonados.
+Tal arquivo deverá ficar em uma pasta própria em seu computador onde este repositório e o repostitório [**LawFlow---Frontend-Sprint-2**](https://github.com/HugoLeoNunes/LawFlow---Frontend-Sprint-2) deverão ser clonados.
 
 Desta forma, na pasta criada ficará apenas o arquivo docker-compose.yml e as pastas LawFlow---Backend-Sprint-2 e LawFlow---Frontend-Sprint-2.
 
@@ -117,9 +117,9 @@ Pronto, para ver o frontend em execução basta digitar em seu navegador: http:/
 Paa ver a execução da API através do flask com a documentação do backend basta digitar em seu navegador: http://localhost:5000
 
 
-### Alguns conheimentos uteis sobre como executei os containers.
+### Alguns conhecimentos úteis sobre como executei os containers.
 
-Adcionei o trecho infra de código no arquivo app.py: 
+Adicionei o trecho infra de código no arquivo app.py: 
 
 `if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)`
