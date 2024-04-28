@@ -67,6 +67,17 @@ Por derradeiro, o aplicativo não apenas proporciona um meio acessível para adv
 
 # LAWFLOW - INSTRUÇÕES DE USO
 
+## Arquitetura do app e containers
+
+Arquitetura dos containers.
+
+![Containers](https://github.com/HugoLeoNunes/LawFlow---Backend-Sprint-2/assets/149954994/464ee269-f0cf-49ab-a662-236fb6e5a2ad)
+
+Arquitetura do frontend.
+
+![Backend](https://github.com/HugoLeoNunes/LawFlow---Backend-Sprint-2/assets/149954994/4561b82c-a170-4da3-9169-f4cb640bd7af)
+
+
 Esta é a versão 1.0.1 de um projeto (MVP) de uma aplicação Web, planejada para o controle de clientes e processos de um escritório de advocacia, voltado para pessoas com pouca afinidade com tecnologia.  
 
 O objetivo aqui é demonstrar a usabilidade e a empregabilidade do aplicativo.
