@@ -13,5 +13,5 @@ importlib-metadata
 itsdangerous
 Jinja2
 MarkupSafe
-Werkzeug==2.2.2
+Werkzeug
 zipp

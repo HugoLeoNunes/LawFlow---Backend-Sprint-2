@@ -1,5 +1,7 @@
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
+from flask import request, jsonify
+from pydantic import ValidationError
 from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
@@ -9,9 +11,14 @@ from logger import logger
 from schemas import *
 from flask_cors import CORS
 
+import tracemalloc
+tracemalloc.start()
+
 info = Info(title="API LawFlow", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
+
+
 
 # definindo tags
 home_tag = Tag(name="Documentação LawFlow", description="Seleção de documentação: Swagger, Redoc ou RapiDoc")
@@ -176,45 +183,55 @@ def busca_cliente(query: ClienteBuscaNomeSchema):
 
 
 @app.post('/processo', tags=[processo_tag],
-          responses={"200": ProcessoViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def add_processo(form: ProcessoSchema):
-    """Adiciona um novo Processo à base de dados
-
-    Retorna uma representação dos Processos.
-    """
+          responses={"200": {"model": ProcessoViewSchema}, "409": {"model": ErrorSchema}, "400": {"model": ErrorSchema}})
+def add_processo():
+    """Adiciona um novo Processo à base de dados e retorna uma representação JSON do Processo."""
+    # Tenta obter os dados da requisição
+    data = request.json if request.json is not None else request.form.to_dict()
     
-    processo = Processo(
-        num_processo=form.num_processo,
-        prazo=form.prazo,
-        audiencia=form.audiencia,
-        status=form.status,
-        processo_relacionado=form.processo_relacionado,
-        patrono=form.patrono
-    )
-
-    logger.info(f"Adicionando processo de número: '{processo.num_processo}'")
+    # Prepara os dados ajustando conforme necessário
+    adjusted_data = {
+        'num_processo': data.get('numProcesso'),
+        'prazo': int(data['prazo']) if data.get('prazo', '').isdigit() else None,
+        'audiencia': data.get('audiencia') if isinstance(data.get('audiencia'), str) else None,
+        'status': data.get('status') if isinstance(data.get('status'), str) else None,
+        'processo_relacionado': data.get('processoRelacionado') if isinstance(data.get('processoRelacionado'), str) else None,
+        'patrono': data.get('patrono') if isinstance(data.get('patrono'), str) else None,
+    }
+    
+    # Valida os dados ajustados com o esquema do Processo
     try:
-        # criando conexão com a base
-        session = Session()
-        # adicionando processo
-        session.add(processo)
-        # efetivando o camando de adição de novo item na tabela
-        session.commit()
-        logger.info("Adicionado processo: %s"% processo)
-        return apresenta_processo(processo), 200
+        form = ProcessoSchema(**adjusted_data)
+    except ValidationError as e:
+        return jsonify(e.messages), 400
+    
+    # Transformando a instância form de ProcessoSchema em um dictionario
+    processo_data = form.model_dump()  # or form.to_dict() depending on the actual method available
 
-    except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Processo de com o mesmo número já salvo na base :/"
-        logger.warning(f"Erro ao adicionar processo '{processo.num_processo}', {error_msg}")
-        return {"mesage": error_msg}, 409
-
-    except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo processo :/"
-        logger.warning(f"Erro ao adicionar Processo '{processo.num_processo}', {error_msg}")
-        return {"mesage": error_msg}, 400
-
+    # Cria o objeto Processo com o dicionário dos dados validados
+    processo = Processo(**processo_data)
+    
+    # Tenta adicionar o Processo ao banco de dados
+    with Session() as db:
+        try:
+            logger.info(f"Tentando adicionar processo: {processo}")
+            db.add(processo)
+            db.commit()
+            db.refresh(processo)
+            logger.info(f"Adicionado processo: {processo}")
+            
+            # processo_serializado = ProcessoSchema.dump(processo)
+            # Deserializa o objeto processo para um dicionário
+            processo_serializado = processo.to_dict()
+            return jsonify(processo_serializado), 200
+            # return jsonify(ProcessoSchema.dump(processo)), 200
+        except Exception as error:
+            logger.error(f"Erro ao adicionar processo: {error}")  # Logando a exceção específica
+            db.rollback()
+            if isinstance(error, IntegrityError):
+                return jsonify({"error": "IntegrityError: O número do processo já existe."}), 409
+            else:
+                return jsonify({"error": "Erro ao adicionar processo"}), 500
     
 @app.get('/processos', tags=[processo_tag],
          responses={"200": ListagemProcessoSchema, "404": ErrorSchema})
@@ -285,6 +302,7 @@ def del_processo(query: ProcessoBuscaSchema):
         error_msg = "Processo não encontrado na base :/"
         logger.warning(f"Erro ao deletar processo #'{processo_num_processo}', {error_msg}")
         return {"mesage": error_msg}, 404
+    
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=True)
