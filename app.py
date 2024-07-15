@@ -34,56 +34,70 @@ def home():
 
 
 @app.post('/cliente', tags=[cliente_tag],
-          responses={"200": ClienteViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def add_cliente(form: ClienteSchema):
+          responses={"200": {"model" : ClienteViewSchema}, "409": {"model": ErrorSchema}, "400": {"model": ErrorSchema}})
+
+def add_cliente():
     """Adiciona um novo Cliente à base de dados."""
 
-    cliente = Cliente(
-        cpf=form.cpf,
-        nome=form.nome,
-        telefone=form.telefone,
-        nome_social=form.nome_social,
-        rg=form.rg,
-        orgao_expeditor=form.orgao_expeditor,
-        uf_doc=form.uf_doc,
-        nacionalidade=form.nacionalidade,
-        estado_civil=form.estado_civil,
-        data_de_nascimento=form.data_de_nascimento,
-        profissao=form.profissao,
-        email=form.email,
-        sexo=form.sexo,
-        rua=form.rua,
-        numero=form.numero,
-        bairro=form.bairro,
-        cidade=form.cidade,
-        uf_endereco=form.uf_endereco,
-        cep=form.cep,
-        complemento=form.complemento)
-    
-    """Retorna uma representação dos clientes e processos associados."""
+    data = request.json if request.json is not None else request.form.to_dict()
 
-    logger.info(f"Adicionando cliente de cpf: '{cliente.cpf}'")
+    adjusted_data = {
+        'cpf': data.get('cpf'),
+        'nome': data.get('nome'),
+        'telefone': int(data['telefone']) if data.get('telefone', '').isdigit() else None,
+        'nome_social': data.get('nomeSocial'),
+        'rg': data.get('rg'),
+        'orgao_expeditor': data.get('orgaoExpeditor'),
+        'uf_doc': data.get('ufDoc'),
+        'nacionalidade': data.get('nacionalidade'),
+        'estado_civil': data.get('estadoCivil'),
+        'data_de_nascimento': data.get('dataDeNascimento'),
+        'profissao': data.get('profissao'),
+        'email': data.get('email'),
+        'sexo': data.get('sexo'),
+        'rua': data.get('rua'),
+        'numero': data.get('numero'),
+        'bairro': data.get('bairro'),
+        'cidade': data.get('cidade'),
+        'uf_endereco': data.get('ufEndereco'),
+        'cep': data.get('cep'),
+        'complemento': data.get('complemento'),
+    }
+
+    # Valida os dados ajustados com o esquema do Cliente
     try:
-        # criando conexão com a base
-        session = Session()
-        # adicionando cliente
-        session.add(cliente)
-        # efetivando o camando de adição de novo cliente na tabela
-        session.commit()
-        logger.info(f"Adicionado o cpf do cliente: '{cliente.cpf}'")
-        return apresenta_cliente(cliente), 200
+        form = ClienteSchema(**adjusted_data)
+    except ValidationError as e:
+        return jsonify(e.messages), 400
+    
+    
+    # Transformando a instância form de ClienteSchema em um dictionario
+    cliente_data = form.model_dump()  # or form.to_dict() depending on the actual method available
 
-    except IntegrityError as e:
-        # como a duplicidade do cpf é a provável razão do IntegrityError
-        error_msg = "Cliente de mesmo cpf já salvo na base :/"
-        logger.warning(f"Erro ao adicionar cliente '{cliente.cpf}', {error_msg}")
-        return {"mesage": error_msg}, 409
+    # Cria o objeto Cliente com o dicionário dos dados validados
+    cliente = Cliente(**cliente_data)
 
-    except Exception as e:
-        # caso ocorra um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar cliente '{cliente.cpf}', {error_msg}")
-        return {"mesage": error_msg}, 400
+    # Tenta adicionar o Cliente ao banco de dados
+    with Session() as db:
+        try:
+            logger.info(f"Tentando adicionar cliente: {cliente}")
+            db.add(cliente)
+            db.commit()
+            db.refresh(cliente)
+            logger.info(f"Adicionado cliente: {cliente}")
+            
+            # cliente_serializado = ClienteSchema.dump(cliente)
+            # Deserializa o objeto cliente para um dicionário
+            cliente_serializado = cliente.to_dict()
+            return jsonify(cliente_serializado), 200
+            # return jsonify(ClienteSchema.dump(cliente)), 200
+        except Exception as error:
+            logger.error(f"Erro ao adicionar cliente: {error}")  # Logando a exceção específica
+            db.rollback()
+            if isinstance(error, IntegrityError):
+                return jsonify({"error": "IntegrityError: O CPF do cliente já existe."}), 409
+            else:
+                return jsonify({"error": "Erro ao adicionar cliente"}), 500
 
 
 @app.get('/clientes', tags=[cliente_tag],
