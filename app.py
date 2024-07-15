@@ -25,7 +25,6 @@ def home():
     """
     return redirect('/openapi')
 
-
 @app.post('/cliente', tags=[cliente_tag],
           responses={"200": ClienteViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_cliente(form: ClienteSchema):
