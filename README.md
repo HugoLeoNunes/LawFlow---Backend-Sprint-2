@@ -77,75 +77,33 @@ Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter com
 
 ## Como executar 
 
+## Configuração do Ambiente
 
-Certifique-se de ter o Docker instalado e em execução em sua máquina.
+1. Certifique-se de ter o Python instalado em sua máquina. Você pode verificar a instalação executando python --version no terminal. Se o Python estiver instalado, você verá a versão exibida. Se não, você precisará [instalar o Python](https://www.python.org/downloads/).
 
-Para fins de facilidade na criação dos contêineres, criei um arquivo chamado docker-compose.yml. Ele está em um repositório próprio para que não exista confusão.
+2. Recomenda-se usar um ambiente virtual para isolar as dependências deste projeto. Para criar um ambiente virtual, execute o seguinte comando no terminal:
 
-Tal arquivo deverá ficar em uma pasta própria em seu computador onde os repostitórios LawFlow---Backend-Sprint-2 e LawFlow---Frontend-Sprint-2 deverão ser clonados.
+bash
+python -m venv env
 
-Desta forma, na pasta criada ficará apenas o arquivo docker-compose.yml e as pastas LawFlow---Backend-Sprint-2 e LawFlow---Frontend-Sprint-2.
+3. Ative o ambiente virtual. No Windows, execute o seguinte comando:
 
-Após, navegue até a pasta onde ambos os repositórios estão, com o diretório que contém o # docker-compose.yml no terminal. Execute como administrador o seguinte comando para construir a imagem Docker:
+bash
+.\env\Scripts\activate
 
-`$ docker-compose up` 
+No macOS ou Linux, execute o seguinte comando:
 
-Podendo ainda executar o comando:
+bash
+source env/bin/activate
 
- `$ docker-compose up -d` 
- 
-para deixar o processo em background.
+4. Com o ambiente virtual ativado, instale as dependências do projeto com o seguinte comando:
 
-> É fortemente indicado o uso de ambientes virtuais do tipo [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).
+bash
+pip install -r requirements.txt
 
-Pronto, para ver o frontend em execução basta digitar em seu navegador: http://localhost/index.html
+## Execução do Script
 
-Paa ver a execução da API através do flask com a documentação do backend basta digitar em seu navegador: http://localhost:5000
+Com o ambiente configurado e as dependências instaladas, você pode executar o script Tratamento_Pandas.py com o seguinte comando:
 
-
-### Alguns conheimentos uteis sobre como executei os containers.
-
-Adcionei o trecho infra de código no arquivo app.py: 
-
-`if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)`
-
- Assim, este trecho de código inicia o servidor de desenvolvimento do Flask na porta 5000 quando o script é executado diretamente. Se o script é importado como um módulo, o servidor não é iniciado.
-
-*Explicação do Dockerfile do Backend*
-
-FROM python:3.10: Isso define a imagem base como a imagem oficial do Python 3.10. 
-
-WORKDIR /app: Isso define o diretório de trabalho no container para /app. Todos os comandos que seguem esta linha no Dockerfile serão executados neste diretório.
-
-RUN pip install -r requirements.txt: Isso instala as dependências Python listadas no arquivo requirements.txt.
-
-COPY . .: Isso copia todos os outros arquivos do seu diretório de construção local para o diretório de trabalho no container.
-
-CMD ["python", "app.py"]: Isso define o comando padrão que será executado quando o container for iniciado. Neste caso, ele irá executar app.py com o interpretador Python.
-
-*Explicação do Dockerfile do Frontend*
-
-Este é um Dockerfile bastante simples que está configurado para criar uma imagem Docker para servir um site estático usando o servidor web Nginx.
-
-FROM nginx:alpine: Esta linha especifica a imagem base que será usada para criar a nova imagem Docker. Neste caso, está sendo usada a imagem nginx:alpine, que é uma versão do servidor web Nginx que foi construída usando a distribuição Alpine Linux. A distribuição Alpine Linux é conhecida por ser muito leve, o que pode ajudar a manter o tamanho da imagem Docker pequeno.
-
-COPY . /usr/share/nginx/html: Esta linha copia os arquivos do diretório atual (onde o Dockerfile está localizado) para o diretório /usr/share/nginx/html dentro do container. Este é o diretório que o Nginx usa por padrão para servir arquivos estáticos. Portanto, qualquer arquivo HTML, CSS, JavaScript, etc., que você tenha no diretório atual será servido pelo Nginx quando o container for iniciado.
-
-*Explicação do Docker Compose*
-
-O arquivo docker-compose.yml é usado pelo Docker Compose para definir e gerenciar múltiplos containers Docker como um único serviço. Aqui está o que cada parte do seu arquivo faz:
-
-version: '3': Esta linha especifica a versão da sintaxe do Docker Compose que está sendo usada. A versão '3' é a mais recente e suporta todos os recursos do Docker Compose.
-
-services:: Esta linha inicia a definição dos serviços que compõem a sua aplicação. Cada serviço corresponde a um container Docker.
-
-backend: e frontend:: Estas linhas definem dois serviços, backend e frontend. Cada serviço terá seu próprio container Docker.
-
-build: ./LFBackAvancado e build: ./LFFrontBasico: Estas linhas especificam o caminho para o Dockerfile que será usado para construir a imagem Docker para cada serviço. O Docker Compose irá procurar um arquivo chamado Dockerfile nesses diretórios e usá-lo para construir a imagem.
-
-ports:: Esta linha inicia a definição das portas que serão expostas pelo container.
-
-- "5000:5000" e - "80:80": Estas linhas mapeiam as portas do container para as portas do host. O formato é porta_do_host:porta_do_container. Portanto, a aplicação backend estará acessível na porta 5000 do host e a aplicação frontend estará acessível na porta 80 do host.
-
-Em resumo, este arquivo docker-compose.yml define uma aplicação composta por dois serviços, backend e frontend. Cada serviço é construído a partir de seu próprio Dockerfile e expõe uma porta para o host.
+bash
+python app.py
