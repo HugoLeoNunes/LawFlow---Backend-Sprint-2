@@ -1,7 +1,7 @@
 # LawFlow
   
   
-*Informações sobre como utilizar o app ao final deste arquivo.*
+*Informações sobre como utilizar a api, ao final deste arquivo.*
 
 
 ## Simplificando o jurídico, conectando advogados ao Futuro!
@@ -13,11 +13,11 @@ Assim, trata-se da etapa inaugural de um projeto destinado ao controle administr
 
 ### Agradecimentos: 
 
-* Em primeiro lugar a Deus por me ensinar que cada desafio é uma oportunidade de aprender a caminhar e conquistar coisas maiores.
-* A Minha maravilhosa esposa, que é minha fonte de carinho e amor.
+* Em primeiro lugar a Deus, por me ensinar que cada desafio é uma oportunidade de aprender a caminhar e conquistar coisas maiores.
+* A minha maravilhosa esposa, que é minha fonte de carinho e amor.
 * As minhas filhas que são literalmente meu TUDO, e mais necessárias a minha existência do que o ar que respiro. Sem deixar de dizer, que sempre que podem, pulam em mim enquanto estou trabalhando ou estudando. 👶
-* Aos amigos que me ssalvam nos dias mais dificeis. Principalemte ao Cadu e ao Rodrigo pelas tempestivas ajudas, sem a qual não teria conseguido terminar este projeto.
-*  Aos meus professores por partilhar seu onhecimento e acreditar no meu potencial.
+* Aos amigos que me salvam nos dias mais dificeis. Principalemte ao Cadu e ao Rodrigo pelas tempestivas ajudas, sem a qual não teria conseguido terminar este projeto.
+*  Aos meus professores por partilhar seu conhecimento e acreditar no meu potencial.
 *  Por último, mas não menos importante, a mim mesmo... Pelo esforço e dedicação. 🥇
 
 
@@ -59,7 +59,7 @@ Por derradeiro, o aplicativo não apenas proporciona um meio acessível para adv
 [**Dr. Hugo Leonardo Nunes.**](https://www.linkedin.com/in/hugo-leonardo-nunes-474152246/) 
 * Consultor Juridico da Nunes & Nunes advogados.
 * Gestor público estadual concursado.
-* Mestre cervejeiro da Sexy Devil Beer (Hoby mais saboroso do mundo).
+* Mestre cervejeiro da Sexy Devil Beer (Hobby mais saboroso do mundo).
 * UX Design formado pela Google.
 * Desenvolvedor full stack em treinamento.
 
@@ -67,11 +67,22 @@ Por derradeiro, o aplicativo não apenas proporciona um meio acessível para adv
 
 # LAWFLOW - INSTRUÇÕES DE USO
 
+## Arquitetura do app e containers
+
+Arquitetura dos containers.
+
+![Containers](https://github.com/HugoLeoNunes/LawFlow---Backend-Sprint-2/assets/149954994/464ee269-f0cf-49ab-a662-236fb6e5a2ad)
+
+Arquitetura do frontend.
+
+![Backend](https://github.com/HugoLeoNunes/LawFlow---Backend-Sprint-2/assets/149954994/4561b82c-a170-4da3-9169-f4cb640bd7af)
+
+
 Esta é a versão 1.0.1 de um projeto (MVP) de uma aplicação Web, planejada para o controle de clientes e processos de um escritório de advocacia, voltado para pessoas com pouca afinidade com tecnologia.  
 
 O objetivo aqui é demonstrar a usabilidade e a empregabilidade do aplicativo.
 
-Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter como suporte e, dependendo do contrato firmado, um escritório de advocacia com advogados de renome e grande arcabouço juridico, para auxiliar nas tramitações de seus processos. 
+Ainda, destacar que todos os serviços ofertados pela aplicação, podem ter como suporte e, dependendo do contrato firmado, um escritório de advocacia com advogados de renome e grande arcabouço jurídico, para auxiliar nas tramitações de seus processos. 
 
 ---
 
